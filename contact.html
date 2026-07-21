@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Jacob Piripi Bainbridge</title>
+<meta name="description" content="Contact Jacob Piripi Bainbridge, actor. Agency, socials, and direct email.">
+<meta property="og:title" content="Contact — Jacob Piripi Bainbridge">
+<meta property="og:description" content="Agency, socials, and direct email.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/images/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="wordmark">Jacob Piripi<br>Bainbridge</a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="video-gallery.html">Video Gallery</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html" class="nav-cta" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- PAGE INTRO -->
+  <section class="page-intro" aria-label="Contact introduction">
+    <div class="section-inner">
+      <p class="eyebrow eyebrow--light">Contact</p>
+      <h1 class="page-title">Get in Touch</h1>
+      <p class="bio-text page-lede">
+        For bookings and enquiries, reach out through the agency, socials, or direct email below.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT LINKS -->
+  <section class="contact-section fade-in" aria-label="Contact links">
+    <div class="section-inner">
+      <div class="contact-grid">
+
+        <div class="contact-item">
+          <a class="contact-logo-link" href="https://odd.co.nz/contact/" target="_blank" rel="noopener" aria-label="Agency — Odd, opens in new tab">
+            <img src="assets/images/logo-odd.svg" alt="" width="80" height="44">
+          </a>
+          <a class="contact-link-label" href="https://odd.co.nz/contact/" target="_blank" rel="noopener">Agency</a>
+        </div>
+
+        <div class="contact-item">
+          <a class="contact-logo-link" href="https://www.instagram.com/jacobpiripibainbridge/" target="_blank" rel="noopener" aria-label="Instagram, opens in new tab">
+            <img src="assets/images/logo-instagram.svg" alt="" width="64" height="64">
+          </a>
+          <a class="contact-link-label" href="https://www.instagram.com/jacobpiripibainbridge/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+
+        <div class="contact-item">
+          <a class="contact-logo-link" href="https://www.linkedin.com/in/jacob-bainbridge-147832246/" target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">
+            <img src="assets/images/logo-linkedin.svg" alt="" width="64" height="64">
+          </a>
+          <a class="contact-link-label" href="https://www.linkedin.com/in/jacob-bainbridge-147832246/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+
+        <div class="contact-item">
+          <button class="contact-logo-link" type="button" id="emailModalTrigger" aria-label="Send a direct email">
+            <img src="assets/images/logo-email.svg" alt="" width="64" height="64">
+          </button>
+          <button class="contact-link-label" type="button" data-email-trigger>Email</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- EMAIL MODAL -->
+<div class="modal" id="emailModal" hidden>
+  <div class="modal-overlay" data-modal-close></div>
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+    <p class="modal-wordmark" aria-hidden="true">Jacob Piripi<br>Bainbridge</p>
+    <button class="modal-close" type="button" data-modal-close aria-label="Close">&times;</button>
+    <h2 id="emailModalTitle" class="cv-table-heading" style="margin-top:0;color:var(--white);text-align:center;">Send a Message</h2>
+
+    <form class="modal-form" id="emailForm" novalidate>
+      <div class="form-field form-honeypot" aria-hidden="true">
+        <label class="form-label" for="companyWebsite">Website</label>
+        <input class="form-input" type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="senderEmail">Your Email</label>
+        <input class="form-input" type="email" id="senderEmail" name="senderEmail" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="emailSubject">Subject</label>
+        <input class="form-input" type="text" id="emailSubject" name="emailSubject" placeholder="What's this about?" maxlength="150" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="emailMessage">Message</label>
+        <textarea class="form-textarea" id="emailMessage" name="emailMessage" maxlength="2000" placeholder="Your message..." required></textarea>
+        <span class="form-counter" id="emailMessageCounter">0 / 2000</span>
+      </div>
+
+      <button class="btn btn-ghost form-submit" type="submit" id="emailSubmitBtn">Send Message</button>
+      <p class="form-status" id="emailFormStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <a href="index.html" class="wordmark wordmark--small">Jacob Piripi Bainbridge</a>
+    <ul class="social-list social-list--footer">
+      <li>
+        <a href="https://odd.co.nz/contact/" target="_blank" rel="noopener" aria-label="Agency — Odd, opens in new tab">
+          <img src="assets/images/logo-odd.svg" alt="Agency" width="36" height="20">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/jacobpiripibainbridge/" target="_blank" rel="noopener" aria-label="Instagram, opens in new tab">
+          <img src="assets/images/logo-instagram.svg" alt="Instagram" width="20" height="20">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/jacob-bainbridge-147832246/" target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">
+          <img src="assets/images/logo-linkedin.svg" alt="LinkedIn" width="20" height="20">
+        </a>
+      </li>
+      <li>
+        <button type="button" data-email-trigger aria-label="Send a direct email">
+          <img src="assets/images/logo-email.svg" alt="Email" width="20" height="20">
+        </button>
+      </li>
+    </ul>
+    <p class="footer-meta">&copy; <span id="year"></span> Jacob Piripi Bainbridge. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

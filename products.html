@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products — Jacob Piripi Bainbridge</title>
+<meta name="description" content="Products from Jacob Piripi Bainbridge, actor. Self-published planner and more.">
+<meta property="og:title" content="Products — Jacob Piripi Bainbridge">
+<meta property="og:description" content="Self-published planner and more.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/images/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="wordmark">Jacob Piripi<br>Bainbridge</a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="video-gallery.html">Video Gallery</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="products.html" aria-current="page">Products</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- PAGE INTRO -->
+  <section class="page-intro" aria-label="Products introduction">
+    <div class="section-inner">
+      <p class="eyebrow eyebrow--light">Products</p>
+      <h1 class="page-title">Products</h1>
+      <p class="bio-text page-lede">
+        <!-- Placeholder copy — replace with real intro -->
+        Tools and goods designed from Jacob's own process, made for actors and creatives.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRODUCT LIST -->
+  <section class="product-list" aria-label="Products">
+    <div class="section-inner">
+
+      <!-- PRODUCT — The Focus Planner -->
+      <div class="product-row fade-in">
+        <div class="product-info">
+          <p class="eyebrow eyebrow--rule">Product — 01</p>
+          <h2 class="product-name">The Focus Planner</h2>
+          <p class="bio-text product-desc">
+            <!-- Placeholder copy — replace with real product description -->
+            A self-published daily planner designed for actors and creatives who need
+            structure without losing spontaneity. Weekly spreads, audition trackers, and
+            reflection prompts, built from Jacob's own process. Now available on Amazon.
+          </p>
+          <a href="#" class="btn btn-invert">Buy Now</a>
+        </div>
+
+        <div class="product-photo-col">
+          <div class="product-slideshow" id="productSlideshow-01" data-gallery="planner">
+            <button class="product-slide is-active" type="button" data-photo-index="0" data-photo-label="Planner — cover" data-label="Planner — cover"></button>
+            <button class="product-slide" type="button" data-photo-index="1" data-photo-label="Planner — interior spread" data-label="Planner — interior spread"></button>
+            <button class="product-slide" type="button" data-photo-index="2" data-photo-label="Planner — audition tracker" data-label="Planner — audition tracker"></button>
+            <button class="product-slide" type="button" data-photo-index="3" data-photo-label="Planner — lifestyle shot" data-label="Planner — lifestyle shot"></button>
+            <button class="product-slide" type="button" data-photo-index="4" data-photo-label="Planner — back cover" data-label="Planner — back cover"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add further .product-row blocks here as new products launch -->
+
+    </div>
+  </section>
+
+</main>
+
+<!-- PRODUCT MODAL -->
+<div class="modal" id="productModal" hidden>
+  <div class="modal-overlay" data-modal-close></div>
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+    <p class="modal-wordmark" id="modalProductWordmark" aria-hidden="true">Jacob Piripi<br>Bainbridge</p>
+    <button class="modal-close" type="button" data-modal-close aria-label="Close photo">&times;</button>
+    <div class="modal-photo-frame" id="modalProductFrame"></div>
+    <div class="modal-navbar">
+      <button class="modal-nav-arrow modal-nav-prev" type="button" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 7 12l8 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="modal-video-title" id="modalProductTitle"></p>
+      <button class="modal-nav-arrow modal-nav-next" type="button" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 8 7-8 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <a href="index.html" class="wordmark wordmark--small">Jacob Piripi Bainbridge</a>
+    <ul class="social-list social-list--footer">
+      <li>
+        <a href="https://odd.co.nz/contact/" target="_blank" rel="noopener" aria-label="Agency — Odd, opens in new tab">
+          <img src="assets/images/logo-odd.svg" alt="Agency" width="36" height="20">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/jacobpiripibainbridge/" target="_blank" rel="noopener" aria-label="Instagram, opens in new tab">
+          <img src="assets/images/logo-instagram.svg" alt="Instagram" width="20" height="20">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/jacob-bainbridge-147832246/" target="_blank" rel="noopener" aria-label="LinkedIn, opens in new tab">
+          <img src="assets/images/logo-linkedin.svg" alt="LinkedIn" width="20" height="20">
+        </a>
+      </li>
+      <li>
+        <a href="contact.html" aria-label="Email">
+          <img src="assets/images/logo-email.svg" alt="Email" width="20" height="20">
+        </a>
+      </li>
+    </ul>
+    <p class="footer-meta">&copy; <span id="year"></span> Jacob Piripi Bainbridge. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
