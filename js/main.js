@@ -69,85 +69,8 @@
     revealTargets.forEach((el) => observer.observe(el));
   }
 
-  /* Home headshot carousel — coverflow style, auto-rotates slowly, click opens modal */
-  const carouselTrack = document.getElementById('homeCarouselTrack');
-  if (carouselTrack) {
-    const carouselSlides = Array.from(carouselTrack.querySelectorAll('.home-carousel-slide'));
-    const total = carouselSlides.length;
-    let active = 0;
-    let paused = false;
-
-    const layout = () => {
-      carouselSlides.forEach((slide, i) => {
-        let offset = i - active;
-        if (offset > total / 2) offset -= total;
-        if (offset < -total / 2) offset += total;
-
-        const abs = Math.abs(offset);
-        const spacing = 46; // % of slide width per step
-        const scale = abs === 0 ? 1 : abs === 1 ? 0.72 : 0.5;
-        const opacity = abs > 2 ? 0 : abs === 0 ? 1 : abs === 1 ? 0.65 : 0.35;
-
-        slide.style.transform = `translate(-50%, -50%) translateX(${offset * spacing}%) scale(${scale})`;
-        slide.style.opacity = String(opacity);
-        slide.style.zIndex = String(total - abs);
-        slide.style.pointerEvents = abs > 2 ? 'none' : 'auto';
-      });
-    };
-    layout();
-
-    let intervalId = null;
-    if (!reduceMotion && total > 1) {
-      intervalId = setInterval(() => {
-        if (paused) return;
-        active = (active + 1) % total;
-        layout();
-      }, 5500);
-    }
-
-    const carousel = document.getElementById('homeCarousel');
-    const pause = () => { paused = true; };
-    const resume = () => { paused = false; };
-    carousel.addEventListener('mouseenter', pause);
-    carousel.addEventListener('mouseleave', resume);
-    carousel.addEventListener('focusin', pause);
-    carousel.addEventListener('focusout', resume);
-
-    carouselSlides.forEach((slide, i) => {
-      slide.addEventListener('click', () => {
-        active = i;
-        layout();
-      });
-    });
-
-    const portraitModal = document.getElementById('portraitModal');
-    if (portraitModal) {
-      portraitModal.addEventListener('modal:open', pause);
-      portraitModal.addEventListener('modal:close', resume);
-    }
-  }
-
-  /* Reel eyebrow — pull the live YouTube video title via oEmbed */
-  const reelFrame = document.getElementById('heroReelFrame');
-  const reelEyebrow = document.getElementById('reelEyebrow');
-  if (reelFrame && reelEyebrow) {
-    const match = reelFrame.src.match(/embed\/([^?]+)/);
-    const videoId = match ? match[1] : null;
-    if (videoId) {
-      const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(watchUrl)}&format=json`)
-        .then((res) => (res.ok ? res.json() : Promise.reject()))
-        .then((data) => {
-          if (data && data.title) reelEyebrow.textContent = data.title;
-        })
-        .catch(() => {
-          /* Keep fallback "Showreel" label on failure */
-        });
-    }
-  }
-
-  /* Reusable modal gallery (used by Video Gallery + CV photo modal) */
-  const initGalleryModal = ({ modalId, cardSelector, frameId, titleId, wordmarkId, buildMedia }) => {
+  /* Reusable modal gallery (used by Home carousel, Video Gallery, CV, Products) */
+  const initGalleryModal = ({ modalId, cardSelector, frameId, titleId, wordmarkId, buildMedia, onCardClick }) => {
     const modal = document.getElementById(modalId);
     if (!modal) return null;
 
@@ -246,7 +169,10 @@
     };
 
     cards.forEach((card, index) => {
-      card.addEventListener('click', () => openModal(index));
+      card.addEventListener('click', () => {
+        if (onCardClick) onCardClick(index, openModal);
+        else openModal(index);
+      });
     });
 
     modal.querySelectorAll('[data-modal-close]').forEach((el) => {
@@ -270,6 +196,116 @@
     return { openModal, closeModal };
   };
 
+  /* Home headshot carousel — coverflow style, auto-rotates slowly.
+     Clicking a side photo rotates it to center; clicking the centered
+     (active) photo opens it in the modal. Swipeable on touch devices. */
+  const carouselTrack = document.getElementById('homeCarouselTrack');
+  if (carouselTrack) {
+    const carouselSlides = Array.from(carouselTrack.querySelectorAll('.home-carousel-slide'));
+    const total = carouselSlides.length;
+    let active = 0;
+    let paused = false;
+
+    const layout = () => {
+      carouselSlides.forEach((slide, i) => {
+        let offset = i - active;
+        if (offset > total / 2) offset -= total;
+        if (offset < -total / 2) offset += total;
+
+        const abs = Math.abs(offset);
+        const spacing = 46; // % of slide width per step
+        const scale = abs === 0 ? 1 : abs === 1 ? 0.72 : 0.5;
+        const opacity = abs > 2 ? 0 : abs === 0 ? 1 : abs === 1 ? 0.65 : 0.35;
+
+        slide.style.transform = `translate(-50%, -50%) translateX(${offset * spacing}%) scale(${scale})`;
+        slide.style.opacity = String(opacity);
+        slide.style.zIndex = String(total - abs);
+        slide.style.pointerEvents = abs > 2 ? 'none' : 'auto';
+      });
+    };
+    layout();
+
+    let intervalId = null;
+    if (!reduceMotion && total > 1) {
+      intervalId = setInterval(() => {
+        if (paused) return;
+        active = (active + 1) % total;
+        layout();
+      }, 5500);
+    }
+
+    const carousel = document.getElementById('homeCarousel');
+    const pause = () => { paused = true; };
+    const resume = () => { paused = false; };
+    carousel.addEventListener('mouseenter', pause);
+    carousel.addEventListener('mouseleave', resume);
+    carousel.addEventListener('focusin', pause);
+    carousel.addEventListener('focusout', resume);
+
+    /* Swipe left/right on touch devices to move to the next/previous photo */
+    let carouselTouchStartX = 0;
+    carousel.addEventListener('touchstart', (e) => {
+      carouselTouchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - carouselTouchStartX;
+      if (Math.abs(dx) < 40) return;
+      active = dx < 0 ? (active + 1) % total : (active - 1 + total) % total;
+      layout();
+    }, { passive: true });
+
+    /* Portrait modal — clicking the centered photo opens it; clicking a
+       side photo rotates the carousel to bring that photo to center. */
+    initGalleryModal({
+      modalId: 'portraitModal',
+      cardSelector: '.home-carousel-slide',
+      frameId: 'modalPortraitFrame',
+      titleId: 'modalPortraitTitle',
+      wordmarkId: 'modalPortraitWordmark',
+      buildMedia: (card) => {
+        const label = card.dataset.photoLabel || card.dataset.label;
+        const src = card.dataset.photoSrc;
+        const html = src
+          ? `<img src="${src}" alt="${label}">`
+          : `<div class="modal-photo-placeholder" data-label="${label}"></div>`;
+        return { html, title: label };
+      },
+      onCardClick: (index, openModal) => {
+        if (index === active) {
+          openModal(index);
+        } else {
+          active = index;
+          layout();
+        }
+      },
+    });
+
+    const portraitModal = document.getElementById('portraitModal');
+    if (portraitModal) {
+      portraitModal.addEventListener('modal:open', pause);
+      portraitModal.addEventListener('modal:close', resume);
+    }
+  }
+
+  /* Reel eyebrow — pull the live YouTube video title via oEmbed */
+  const reelFrame = document.getElementById('heroReelFrame');
+  const reelEyebrow = document.getElementById('reelEyebrow');
+  if (reelFrame && reelEyebrow) {
+    const match = reelFrame.src.match(/embed\/([^?]+)/);
+    const videoId = match ? match[1] : null;
+    if (videoId) {
+      const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(watchUrl)}&format=json`)
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((data) => {
+          if (data && data.title) reelEyebrow.textContent = data.title;
+        })
+        .catch(() => {
+          /* Keep fallback "Showreel" label on failure */
+        });
+    }
+  }
+
   /* Video modal (Video Gallery page) */
   initGalleryModal({
     modalId: 'videoModal',
@@ -282,23 +318,6 @@
       const title = card.dataset.videoTitle;
       const html = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1" title="${title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
       return { html, title };
-    },
-  });
-
-  /* Portrait modal (Homepage carousel) */
-  initGalleryModal({
-    modalId: 'portraitModal',
-    cardSelector: '.home-carousel-slide',
-    frameId: 'modalPortraitFrame',
-    titleId: 'modalPortraitTitle',
-    wordmarkId: 'modalPortraitWordmark',
-    buildMedia: (card) => {
-      const label = card.dataset.photoLabel || card.dataset.label;
-      const src = card.dataset.photoSrc;
-      const html = src
-        ? `<img src="${src}" alt="${label}">`
-        : `<div class="modal-photo-placeholder" data-label="${label}"></div>`;
-      return { html, title: label };
     },
   });
 
