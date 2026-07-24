@@ -9,18 +9,44 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* Mobile nav toggle */
+  /* Mobile nav toggle — locks body scroll while open to avoid an iOS WebKit
+     bug where nested fixed-position elements (primary-nav inside the fixed
+     header) desync once the page has been scrolled. */
   const navToggle = document.getElementById('navToggle');
   const primaryNav = document.getElementById('primaryNav');
+  let lockedScrollY = 0;
+
+  const openNav = () => {
+    lockedScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.width = '100%';
+    document.body.classList.add('nav-open');
+    navToggle.setAttribute('aria-expanded', 'true');
+  };
+
+  const closeNav = () => {
+    document.body.classList.remove('nav-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, lockedScrollY);
+    navToggle.setAttribute('aria-expanded', 'false');
+  };
+
   navToggle.addEventListener('click', () => {
-    const isOpen = document.body.classList.toggle('nav-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
+    if (document.body.classList.contains('nav-open')) closeNav();
+    else openNav();
   });
   primaryNav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      document.body.classList.remove('nav-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    });
+    link.addEventListener('click', closeNav);
+  });
+
+  /* Safety: if viewport crosses to desktop layout while menu is open
+     (e.g. orientation/resize), release the scroll lock. */
+  const desktopMq = window.matchMedia('(min-width: 900px)');
+  desktopMq.addEventListener('change', (e) => {
+    if (e.matches && document.body.classList.contains('nav-open')) closeNav();
   });
 
   /* Scroll-reveal */

@@ -251,12 +251,14 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 .primary-nav {
   position: fixed;
   inset: 0;
+  z-index: 105;
   background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateY(-100%);
   transition: transform var(--dur) var(--ease);
+  will-change: transform;
 }
 .nav-open .primary-nav { transform: translateY(0); }
 .primary-nav ul {
