@@ -250,7 +250,11 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
 
 .primary-nav {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100lvh;
   z-index: 105;
   background: var(--white);
   display: flex;
