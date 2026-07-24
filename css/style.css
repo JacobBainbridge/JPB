@@ -256,9 +256,15 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   transform: translateY(-100%);
-  transition: transform var(--dur) var(--ease);
+  visibility: hidden;
+  transition: transform var(--dur) var(--ease), visibility 0s linear var(--dur);
   will-change: transform;
+}
+.nav-open .primary-nav {
+  visibility: visible;
+  transition: transform var(--dur) var(--ease), visibility 0s linear 0s;
 }
 .nav-open .primary-nav { transform: translateY(0); }
 .primary-nav ul {
