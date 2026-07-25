@@ -546,6 +546,18 @@
 
   }
 
+  /* Product description "See more" inline expand */
+  document.querySelectorAll('.product-desc-toggle').forEach((btn) => {
+    const wrap = btn.closest('.product-desc-wrap');
+    const extras = wrap.querySelectorAll('.product-desc-full');
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      extras.forEach((p) => { p.hidden = expanded; });
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? 'See more' : 'See less';
+    });
+  });
+
   /* Footer year */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();

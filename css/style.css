@@ -777,7 +777,27 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   font-weight: 500;
   margin-bottom: 1.25rem;
 }
-.product-desc { margin-bottom: 2rem; }
+.product-desc { margin-bottom: 1.25rem; }
+.product-desc-full { margin-bottom: 1.25rem; }
+.product-desc-wrap { margin-bottom: 2rem; }
+
+.product-price {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--gray-700);
+  margin: -0.5rem 0 1.5rem;
+}
+
+.product-desc-toggle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--black);
+  border-bottom: 1px solid var(--gray-300);
+  padding: 0 0 0.15rem;
+  transition: opacity var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.product-desc-toggle:hover { opacity: 0.6; border-color: var(--black); }
 
 .product-photo-col { width: 100%; }
 
@@ -785,7 +805,7 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   position: relative;
   width: 100%;
   max-width: 32rem;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 5 / 8;
   border: 1px solid var(--gray-300);
   overflow: hidden;
 }
@@ -798,7 +818,8 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   border: 0;
   background-color: var(--gray-100);
   background-image: repeating-linear-gradient(135deg, var(--gray-100), var(--gray-100) 10px, var(--white) 10px, var(--white) 20px);
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   opacity: 0;
   transition: opacity 1.4s var(--ease);
