@@ -292,8 +292,15 @@ button { font: inherit; background: none; border: 0; cursor: pointer; color: inh
   .nav-toggle { display: none; }
   .primary-nav {
     position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+    z-index: auto;
     background: none;
     transform: none;
+    visibility: visible;
+    overflow: visible;
     display: block;
     padding-left: var(--gutter);
   }
