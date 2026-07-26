@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<title>Booked! — Aim Trainer | Jacob Piripi Bainbridge</title>
+<meta name="description" content="Book Jacob for as many roles as you can in 60 seconds. A mini arcade game.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Bungee&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/game/css/game.css">
+<link rel="icon" type="image/svg+xml" href="assets/images/jpb-icon.svg">
+</head>
+<body class="game-body">
+
+<a href="index.html" class="game-back" aria-label="Back to site">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 7 12l8 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+
+<div class="phone-frame" id="phoneFrame">
+  <div class="game-viewport" id="gameViewport">
+
+    <!-- START -->
+    <section class="game-screen is-active" id="screen-start">
+      <p class="g-eyebrow">Casting Call</p>
+      <h1 class="g-title">BOOKED<span>!</span></h1>
+      <p class="g-sub">Tap the headshots before they walk. Book as many roles for Jacob as you can in 60 seconds.</p>
+      <form class="g-form" id="startForm" novalidate>
+        <input class="g-input" type="text" id="playerName" name="playerName" placeholder="Your name" maxlength="18" autocomplete="off" required>
+        <button class="g-btn g-btn-primary" type="submit" id="startBtn" disabled>Start Game</button>
+      </form>
+      <button class="g-link-btn" type="button" data-open-board>View Leaderboard</button>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="game-screen" id="screen-countdown" hidden>
+      <div id="countdownDisplay"></div>
+    </section>
+
+    <!-- PLAY -->
+    <section class="game-screen" id="screen-play" hidden>
+      <button class="g-mute" id="muteBtn" type="button" aria-label="Mute sound" aria-pressed="false">🔊</button>
+      <div class="g-hud">
+        <div class="g-hud-stat">
+          <span class="g-hud-label">Score</span>
+          <span class="g-hud-value" id="hudScore">0</span>
+        </div>
+        <div class="g-hud-stat g-hud-time">
+          <span class="g-hud-label">Time</span>
+          <span class="g-hud-value" id="hudTime">60</span>
+        </div>
+        <div class="g-hud-stat g-hud-combo">
+          <span class="g-hud-label">Combo</span>
+          <span class="g-hud-value g-combo-value" id="hudCombo">x0</span>
+        </div>
+      </div>
+
+      <div class="g-play-area" id="playArea">
+        <div class="g-launcher" id="launcher">
+          <span class="g-launcher-finger" aria-hidden="true">👆</span>
+          <div class="g-launcher-phone" aria-hidden="true">✉️</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- END -->
+    <section class="game-screen" id="screen-end" hidden>
+      <p class="g-eyebrow">Time's Up</p>
+      <p class="g-score-big" id="endScore">0</p>
+      <p class="g-score-label">Final Score</p>
+      <p class="g-end-message" id="endMessage"></p>
+      <div class="g-actions">
+        <div class="g-actions-row">
+          <button class="g-btn g-btn-primary" type="button" id="playAgainBtn">Play Again</button>
+          <button class="g-btn g-btn-ghost" type="button" id="shareBtn">Share Score</button>
+        </div>
+        <div class="g-actions-row">
+          <button class="g-btn g-btn-ghost" type="button" data-open-board>Leaderboard</button>
+          <a class="g-btn g-btn-ghost" href="index.html">Back to Site</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section class="game-screen" id="screen-leaderboard" hidden>
+      <p class="g-board-title">Top Bookings</p>
+      <p class="g-board-empty" id="boardEmpty" hidden>No scores yet — be the first to get booked.</p>
+      <ul class="g-board-list" id="boardList"></ul>
+      <button class="g-btn g-btn-ghost" type="button" id="boardBackBtn">Back</button>
+    </section>
+
+    <div class="g-toast" id="toast"></div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop preload="auto" src="assets/game/audio/bgm.wav"></audio>
+<audio id="cheerSfx" preload="auto" src="assets/game/audio/cheer.wav"></audio>
+
+<script src="assets/game/js/manifest.js"></script>
+<script src="assets/game/js/game.js"></script>
+</body>
+</html>
