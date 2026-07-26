@@ -299,8 +299,8 @@
   padding: 0;
   border: 0;
   cursor: pointer;
-  background-size: cover;
-  background-position: center top;
+  background-size: contain;
+  background-position: center center;
   background-color: var(--g-black-soft);
   box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.7);
   transform: translate(-50%, -50%) scale(0);
